@@ -1,0 +1,125 @@
+<div id="reset-styles">
+
+    <!----------------------------- ASSOCIATES ------------------------------->
+    <table width="100%">
+        <tr>
+            <td width="20%"><b>Program:</b></td>
+            <td width="30%">{{ doc.program }}</td>
+            <td width="20%"><b>Šifra:</b></td>
+            <td width="30%">{{ doc.name }}</td>
+        </tr>
+        <tr>
+            <td width="25%"><b>Održan:</b></td>
+            <td width="25%">{{ frappe.utils.formatdate(doc.start_date, "dd.MM.YYYY.") }} - {{ frappe.utils.formatdate(doc.end_date, "dd.MM.YYYY.") }}</td>
+            <td width="25%"><b>Rukovodilac:</b></td>
+            <td width="25%">{{ doc.manager_full_name }}</td>
+        </tr>
+    </table>
+
+    {% for ca in doc.associates%}
+    <table width="100%" style="border: 1px solid black">
+        <tr>
+            <td width="33%"><b>Ime i prezime</b></td>
+            <td width="33%"><b>Afilijacija</b></td>
+            <td width="34%" style="text-align: right;">{{ ca.associate_status }}</td>
+        </tr>
+        <tr>
+            <td>{{ ca.full_name }}</td>
+            <td colspan="2">{{ ca.associate_affiliation }}</td>
+        </tr>
+        <tr>
+            <td colspan="3"><b>Boravak (od-do):</b></td>
+        </tr>
+        <tr>
+            <td>{{ frappe.utils.formatdate(ca.arrival_time, "dd.MM.YYYY.") }} - {{ frappe.utils.formatdate(ca.departure_time, "dd.MM.YYYY.") }}</td>
+            <td><b>Soba:</b></td>
+            <td style="border-bottom: 1px solid black"></td>
+        </tr>
+        <tr>
+            <td>
+                <span style="background-color: black">&nbsp;&nbsp;&nbsp;&nbsp;</span> <b>Prateći formular</b>
+            </td>
+            <td></td>
+            <td style="text-align: center"><b>Svojeručni potpis</b></td>
+        </tr>
+    </table>
+    {% endfor %}
+
+    <!----------------------------- SCHEDULE ------------------------------->
+    <div class="page-break"></div>
+
+    <table width="100%">
+        <tr>
+            <td width="20%"><b>Program:</b></td>
+            <td width="30%">{{ doc.program }}</td>
+            <td width="20%"><b>Šifra:</b></td>
+            <td width="30%">{{ doc.name }}</td>
+        </tr>
+        <tr>
+            <td width="25%"><b>Održan:</b></td>
+            <td width="25%">{{ frappe.utils.formatdate(doc.start_date, "dd.MM.YYYY.") }} - {{ frappe.utils.formatdate(doc.end_date, "dd.MM.YYYY.") }}</td>
+            <td width="25%"><b>Rukovodilac:</b></td>
+            <td width="25%">{{ doc.manager_full_name }}</td>
+        </tr>
+    </table>
+    <table width="100%">
+        {% for date, list in doc.activities | groupby('activity_date') %}
+        <tr>    
+            <td width=20%>&nbsp;</td>
+            <td>&nbsp;</td>
+        </tr>
+        <tr>
+            <td style="text-align: right;">
+                <b>{{ ['PONEDELJAK', 'UTORAK', 'SREDA', 'ČETVRTAK', 'PETAK', 'SUBOTA', 'NEDELJA'][frappe.utils.getdate(date).weekday()]}}</b>&nbsp;&nbsp;&nbsp;
+            </td>
+            <td><b>{{ date }}</b></td>
+        </tr>
+        {%     for activity in list %}
+        <tr>
+            <td style="text-align: right;">{{ frappe.utils.format_datetime(activity.time_from, "HH:mm") }}&nbsp;&nbsp;&nbsp;</td>
+            <td>{{ activity.activity_title }} {% if activity.extra %} - {{ activity.extra }} {% endif %}</td>
+        </tr>
+        {%     endfor %}
+        {% endfor %}
+    </table>
+
+    <!----------------------------- ACTIVITIES ------------------------------->
+    <div class="page-break"></div>
+
+    <table width="100%">
+        <tr>
+            <td width="20%"><b>Program:</b></td>
+            <td width="30%">{{ doc.program }}</td>
+            <td width="20%"><b>Šifra:</b></td>
+            <td width="30%">{{ doc.name }}</td>
+        </tr>
+        <tr>
+            <td width="25%"><b>Održan:</b></td>
+            <td width="25%">{{ frappe.utils.formatdate(doc.start_date, "dd.MM.YYYY.") }} - {{ frappe.utils.formatdate(doc.end_date, "dd.MM.YYYY.") }}</td>
+            <td width="25%"><b>Rukovodilac:</b></td>
+            <td width="25%">{{ doc.manager_full_name }}</td>
+        </tr>
+    </table>
+
+    <table width="100%">
+        {% for ca in doc.activities | unique(attribute='activity') %}
+        {% set _activity = frappe.get_doc('Activity', ca.activity) %}
+        {% if _activity.description %}
+        <tr>
+            <td width="20%"><b>Aktivnost: </b>{{ _activity.type }}</td>
+            <td><b>Naziv: </b>{{ ca.activity_title }}</td>
+        </tr>
+        <tr>
+            <td><b>Opis:</b></td>
+            <td>&nbsp;</td>
+        </tr>
+        <tr>
+            <td colspan="2">{{ _activity.description }}</td>
+        </tr>
+        <tr>
+            <td colspan="2">&nbsp;</td>
+        </tr>
+        {% endif %}
+        {% endfor %}
+    </table>
+</div>

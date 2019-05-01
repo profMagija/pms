@@ -1,0 +1,23 @@
+{
+ "align_labels_right": 0,
+ "creation": "2019-04-26 20:40:13.161181",
+ "css": ".tw-table td {\n\tvertical-align: middle !important;\n\tpadding: 0px !important;\n\tfont-family: serif;\n}\n\n.style1 {font-weight: bold}\n.style2 {font-weight: bold}\n.style3 {font-weight: bold}\n.style4 {font-weight: bold}\n.style5 {font-weight: bold}",
+ "custom_format": 0,
+ "disabled": 0,
+ "doc_type": "Travel Warrant",
+ "docstatus": 0,
+ "doctype": "Print Format",
+ "font": "Verdana",
+ "format_data": "[{\"fieldname\": \"print_heading_template\", \"fieldtype\": \"Custom HTML\", \"options\": \"  \"}, {\"fieldtype\": \"Section Break\", \"label\": \"\"}, {\"fieldtype\": \"Column Break\"}, {\"fieldname\": \"_custom_html\", \"print_hide\": 0, \"label\": \"Custom HTML\", \"fieldtype\": \"HTML\", \"options\": \"{% include 'templates/includes/travel_warrant.html' %}\"}]",
+ "idx": 0,
+ "line_breaks": 0,
+ "modified": "2019-04-27 23:56:37.692364",
+ "modified_by": "Administrator",
+ "module": "Documentation",
+ "name": "Travel Warrant",
+ "owner": "Administrator",
+ "print_format_builder": 1,
+ "print_format_type": "Server",
+ "show_section_headings": 0,
+ "standard": "Yes"
+}

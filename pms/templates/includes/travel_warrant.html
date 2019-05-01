@@ -1,0 +1,217 @@
+<table width="100%" border="0" class="tw-table">
+    <tr>
+        <td>NALOG ZA SLUŽBENI PUT - PUTNI RAČUN
+            <p>Ovaj obrazac urađen je u skladu sa izmenama i dopunama Zakona o porezu na dohodak građana, čl. 85 stav 4.
+                &quot;Sl. glasnik 135/2004&quot; i primenjuje se za isplatu učesnika obrazovnih programa u ISP u
+                kategorijama saradnik i mlađi saradnik - fizičko lice koje nije u radnom odnosu u ISP, a dolazi po
+                pozivu.</p>
+            PODACI O PROGRAMU<br />
+
+            <table width="100%" border="1" cellpadding="0" cellspacing="0">
+                <tr>
+                    <td width="532" style="border-right-style:none">
+                        <p>&nbsp;program: <strong>{{ doc.course_name }}</strong> </p>
+                        <p>&nbsp;period trajanja programa <strong>{{ frappe.utils.formatdate(doc.course_start, "dd.MM.YYYY.") }} - {{ frappe.utils.formatdate(doc.course_end, "dd.MM.YYYY.") }}</strong>
+                        </p>
+                        &nbsp;poziv uputio (rukovodilac programa): <strong>{{ doc.course_manager }}</strong>
+                    </td>
+                    <td width="262" style="border-left-style:none">&nbsp;Šifra programa:
+                        <strong>{{ doc.course_code }}</strong>
+                        <p>&nbsp;status pozvanog: <strong>{{ doc.assoc_status }}</strong></p>
+                    </td>
+                </tr>
+            </table>
+            PODACI O POZVANOM<br />
+
+            <table width="100%" border="1" cellspacing="0" cellpadding="0">
+                <tr>
+                    <td>
+                        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                            <tr>
+                                <td width="59%">&nbsp;prezime i ime: <strong>{{ doc.full_name }}</strong>&nbsp;</td>
+                                <td width="41%">JMBG: <strong>{{ doc.jmbg }}</strong></td>
+                            </tr>
+                            <tr>
+                                <td>&nbsp;stalna adresa: <strong>{{ doc.perm_addr }}</strong></td>
+                                <td>br.l.k.: <strong>{{ doc.id_card_no }}</strong>&nbsp;/&nbsp;MUP:
+                                    <strong>{{ doc.id_card_issuer }}</strong></td>
+                            </tr>
+                            <tr>
+                                <td>&nbsp;privremena adresa: <strong>{{ doc.temp_addr or '' }}</strong></td>
+                                <td>&nbsp;</td>
+                            </tr>
+                            <tr>
+                                <td>&nbsp;telefon: <strong>{{ doc.phone_no }}</strong></td>
+                                <td>&nbsp;</td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+            OBRAČUN<br />
+
+            <table width="100%" border="1" cellspacing="0" cellpadding="0">
+                <tr>
+                    <td width="32%">Dnevnice</td>
+                    <td width="10%">
+                        <div align="center">br. časova</div>
+                    </td>
+                    <td width="12.5%">
+                        <div align="center">broj dnevnica</div>
+                    </td>
+                    <td width="10%">
+                        <div align="center">dnevnica</div>
+                    </td>
+                    <td width="19%">
+                        <div align="right">svega dinara</div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <p>dan dolaska: {{ frappe.utils.format_datetime(doc.arrival_time, "dd.MM.YYYY. 'u' HH'h' mm'min'") }}<br />
+                        dan povratka: {{ frappe.utils.format_datetime(doc.departure_time, "dd.MM.YYYY. 'u' HH'h' mm'min'") }}</p>
+                    </td>
+                    <td>
+                        <div align="center"><strong>{{ doc.num_hours }}</strong>h</div>
+                    </td>
+                    <td>
+                        <div align="center"><span class="style1">
+                                {{ doc.num_wages }} </span></div>
+                    </td>
+                    <td>
+                        <div align="right"><strong>{{ "%.2f" | format(doc.wage | float) }}</strong>&nbsp;</div>
+                    </td>
+                    <td>
+                        <div align="right">
+                            <div align="right"><span class="style2">
+                                    {{ "%.2f" | format(doc.wage_total | float) }}</span>&nbsp;</div>
+                    </td>
+                </tr>
+            </table>
+            <table width="100%" border="1" cellspacing="0" cellpadding="0">
+                <tr>
+                    <td colspan="4">TROŠKOVI PREVOZA</td>
+                    <td width="10%" rowspan="{{doc.public_transport|length + 2}}" valign="bottom">
+                        <div align="right"><span class="style3">
+                                {{ "%.2f" | format(doc.transport_total | float) }}</span>&nbsp;</div>
+                    </td>
+                </tr>
+                <tr>
+                    <td width="22.5%">
+                        <div align="center">od</div>
+                    </td>
+                    <td width="22.5%">
+                        <div align="center">do</div>
+                    </td>
+                    <td width="22.5%">
+                        <div align="center">vrsta prevoza</div>
+                    </td>
+                    <td width="22.5%">
+                        <div align="center">dinara</div>
+                    </td>
+                </tr>
+                {% for pt in doc.public_transport + doc.own_transport %}
+                <tr>
+                    <td><strong>{{ pt.from }}</strong></td>
+                    <td><strong>{{ pt.to }}</strong></td>
+                    <td><strong>{{ pt.type }}</strong></td>
+                    <td>
+                        <div align="right"><strong>{{ "%.2f" | format((pt.price or "0") | float) }}</strong></div>
+                    </td>
+                </tr>
+                {% endfor %}
+                <tr>
+                    <td colspan="5">Registarski broj: {{ doc.car_registration or '' }}</td>
+                </tr>
+                <tr>
+                    <td colspan="4">OSTALO</td>
+                    <td rowspan="{{doc.other_expenses|length + 1}}" valign="bottom">
+                        <div align="right"><span class="style4">
+                                {{ "%.2f" | format(doc.other_total | float) }}</span>&nbsp;</div>
+                    </td>
+                </tr>
+                {% for ot in doc.other_expenses %}
+                <tr>
+                    <td colspan="3"><strong>{{ot.description}}</strong>&nbsp;</td>
+                    <td>
+                        <div align="right"><strong>{{ "%.2f" | format(ot.ammount | float) }}</strong>&nbsp;</div>
+                    </td>
+                </tr>
+                {% endfor %}
+            </table>
+            <table width="100%" border="1" cellspacing="0" cellpadding="0">
+                <tr>
+                    <td width="80%">
+                        <div align="right">SVEGA</div>
+                    </td>
+                    <td width="20%">
+                        <div align="right"><span class="style5">
+                                {{ "%.2f" | format(doc.total | float) }}</span>&nbsp;</div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div align="right">primljena akontacija</div>
+                    </td>
+                    <td>
+                        <div align="right"><strong>{{ "%.2f" | format(doc.received | float) }}</strong>&nbsp;</div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div align="right">ostaje za isp/upl</div>
+                    </td>
+                    <td>
+                        <div align="right"><strong>{{ "%.2f" | format(doc.remains | float) }}</strong>&nbsp;</div>
+                    </td>
+                </tr>
+            </table>
+            <div align="right">
+                <p align="right">PRIMIO
+                    (vratio)<u><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ "%.2f" | format(doc.total | float) }}</strong></u>&nbsp;
+                </p>
+                <p align="justify">
+                    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                        <tr>
+                            <td width="50%">U Petnici {{ frappe.utils.formatdate(doc.date, "dd.MM.YYYY.") }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                            <td width="50%">
+                                <div align="right">
+                                    ______________________<br />
+                                    (potpis primaoca)
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                    <p align="justify">
+                        Potvr&#273;ujem da je putovanje izvr&scaron;eno prema navedenim podacima i odobravam isplatu.
+                        <table width="90%" border="0" align="center" cellpadding="0" cellspacing="0">
+                            <tr>
+                                <td width="33%">
+                                    <div align="center">rukovodilac programa</div>
+                                </td>
+                                <td>
+                                    <div align="center">blagajnik</div>
+                                </td>
+                                <td width="33%">
+                                    <div align="center">nalogodavac</div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <br />
+                                    <hr width="80%">
+                                </td>
+                                <td><br />
+                                    <hr width="80%">
+                                </td>
+                                <td><br />
+                                    <hr width="80%">
+                                </td>
+                            </tr>
+                        </table>
+                    </p>
+                </p>
+            </div>
+        </td>
+    </tr>
+</table>
