@@ -12,20 +12,33 @@ class CourseActivity(Document):
 	pass
 
 @frappe.whitelist()
-def get_events(doctype, start, end, filters=None):
+def get_events(doctype, start, end, course, filters=None):
 
-	filters = json.loads(filters or  '[]')
+	# filters = json.loads(filters or  '[]')
 
-	filters = [x[:4] for x in filters]
+	# filters = [x[:4] for x in filters]
 
-	start_date = "ifnull(time_from, '0001-01-01 00:00:00')"
-	end_date = "ifnull(time_to, '2199-12-31 00:00:00')"
+	# start_date = "ifnull(time_from, '0001-01-01 00:00:00')"
+	# end_date = "ifnull(time_to, '2199-12-31 00:00:00')"
 
-	filters += [
-		[doctype, start_date, '<=', end],
-		[doctype, end_date, '>=', start],
-	]
+	# filters += [
+	# 	[doctype, 'parent']
+	# 	[doctype, start_date, '<=', end],
+	# 	[doctype, end_date, '>=', start],
+	# ]
 
-	results = frappe.get_list(doctype, fields=['*'], filters=filters)
+	# results = frappe.get_all(doctype, fields=[
+	# 	'name', 
+	# 	'activity',
+	# 	'time_from', 
+	# 	'time_to',
+	# 	'extra',
+	# 	'activity_title',
+	# 	'color'
+	# 	], filters=filters)
 
-	return results
+	assert doctype == 'Course Activity', 'Invalid doctype specified'
+
+	course = frappe.get_doc("Course", course)
+
+	return course.activities
