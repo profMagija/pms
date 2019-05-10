@@ -91,7 +91,7 @@
             <table width="100%" border="1" cellspacing="0" cellpadding="0">
                 <tr>
                     <td colspan="4">TROŠKOVI PREVOZA</td>
-                    <td width="10%" rowspan="{{doc.public_transport|length + 2}}" valign="bottom">
+                    <td width="10%" rowspan="7" valign="bottom">
                         <div align="right"><span class="style3">
                                 {{ "%.2f" | format(doc.transport_total | float) }}</span>&nbsp;</div>
                     </td>
@@ -120,12 +120,23 @@
                     </td>
                 </tr>
                 {% endfor %}
+                {% for _ in range(4 - (doc.public_transport|count) + (doc.own_transport|count)) %}
+                <tr>
+                    <td><strong>&nbsp;</strong></td>
+                    <td><strong>&nbsp;</strong></td>
+                    <td><strong>&nbsp;</strong></td>
+                    <td>
+                        <div align="right"><strong>0.00</strong></div>
+                    </td>
+                </tr>
+                {% endfor %}
+                <tr><td colspan="4">&nbsp;</td></tr> 
                 <tr>
                     <td colspan="5">Registarski broj: {{ doc.car_registration or '' }}</td>
                 </tr>
                 <tr>
                     <td colspan="4">OSTALO</td>
-                    <td rowspan="{{doc.other_expenses|length + 1}}" valign="bottom">
+                    <td rowspan="5" valign="bottom">
                         <div align="right"><span class="style4">
                                 {{ "%.2f" | format(doc.other_total | float) }}</span>&nbsp;</div>
                     </td>
@@ -135,6 +146,14 @@
                     <td colspan="3"><strong>{{ot.description}}</strong>&nbsp;</td>
                     <td>
                         <div align="right"><strong>{{ "%.2f" | format(ot.ammount | float) }}</strong>&nbsp;</div>
+                    </td>
+                </tr>
+                {% endfor %}
+                {% for _ in range(4 - (doc.other_expenses|count)) %}
+                <tr>
+                    <td colspan="3"><strong>&nbsp;</strong>&nbsp;</td>
+                    <td>
+                        <div align="right"><strong>0.00</strong>&nbsp;</div>
                     </td>
                 </tr>
                 {% endfor %}
