@@ -26,11 +26,24 @@ function time_to_date(time) {
 frappe.ui.form.handlers['Course Associate'] = {
 	create_travel_warrant: [
 		async function(frm, doctype, docname) {
+			if (frm.is_dirty())
+			{
+				frappe.msgprint('Please save changes first')
+				return;
+			}
 			var course_assoc = frappe.get_doc(doctype, docname);
-			var tw = await frappe.new_doc("Travel Warrant", {
+			if (course_assoc.associate_status == '')
+			{
+				frappe.msgprint('Enter associate status first')
+				return;
+			}
+			await frappe.new_doc("Travel Warrant", {
 				course: frm.doc.name,
-				associate: course_assoc.associate
+				associate: course_assoc.associate,
+				course_associate: course_assoc.name
 			});
+
+			
 		}
 	]
 }

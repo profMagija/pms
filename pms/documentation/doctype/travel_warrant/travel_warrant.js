@@ -3,8 +3,9 @@
 
 frappe.ui.form.on('Travel Warrant', {
 	refresh (frm) {
-		frm.trigger('course');
-		frm.trigger('associate');
+		// frm.trigger('course');
+		// frm.trigger('associate');
+		// frm.save();
 	},
 
 	async course (frm) {
@@ -52,20 +53,64 @@ frappe.ui.form.on('Travel Warrant', {
 	},
 
 	async update_either (frm) {
+
+		function mk_from_to(x)
+		{
+			return x.arrival_time + ' - ' + x.departure_time;
+		}
+
 		var asoc = frm.__asoc;
 		var course = frm.__course;
 		if (!asoc || !course) return;
+		if (frm.__inUpdate)
+			return;
+		frm.__inUpdate = true;
 
-		var course_asocs = course.associates.filter(x => x.associate == asoc.name);
+		var course_asocs = null;
+
+		if (frm.doc.course_associate)
+		{
+			course_asocs = course.associates.filter(x => x.name == frm.doc.course_associate);
+		} 
+		else 
+		{
+			course_asocs = course.associates.filter(x => x.associate == asoc.name);
+		}
+
 		if (course_asocs.length == 0)
 		{
 			frappe.msgprint('No such assistant at course', 'Uh oh!');
 		}
 
-		var course_asoc = course_asocs[0];
+		if (course_asocs.length > 1)
+		{
+			var dialog = frappe.prompt({
+				label: "Stay period",
+				fieldname: 'value',
+				fieldtype: 'Select',
+				options: course_asocs.map(mk_from_to).join('\n')
+			}, (vals) => {
+				frm.__inUpdate = false;
+				frm.__ca = course_asocs.filter(x => mk_from_to(x) == vals.value)[0];
+				frm.trigger('start_recalculation');
+			}, 'Which stay period of that associate?', 'Confirm');
+			dialog.set_secondary_action(() => {
+				frm.__inUpdate = false;
+			})
+		}
+		else {
+			frm.__inUpdate = false;
+			frm.__ca = course_asocs[0];
+			frm.trigger('start_recalculation');
+		}
+	},
+
+	async start_recalculation (frm) {
+		var course_asoc = frm.__ca;
 
 		var status = await frappe.db.get_doc("Associate Status", course_asoc.associate_status);
 
+		frm.set_value('course_associate', course_asoc.name);
 		frm.set_value('arrival_time', course_asoc.arrival_time);
 		frm.set_value('departure_time', course_asoc.departure_time);
 		frm.set_value('assoc_status', status.name);
@@ -115,7 +160,7 @@ frappe.ui.form.on('Travel Warrant', {
 		}
 
 		if (frm.doc.total_distance && frm.doc.gas_price) {
-			transp_total += Number(frm.doc.total_distance) * Number(frm.doc.gas_price);
+			transp_total += Number(frm.doc.total_distance) * Number(frm.doc.gas_price) * 0.1;
 		}
 
 		var other_total = 0;
