@@ -1,0 +1,143 @@
+DocType: Course,A,A
+DocType: Course,A / B / C / D,A / B / C / D
+DocType: Course Associate,Actions,Akcije
+DocType: Course,Activities,Aktivnosti
+DocType: Activity,Activity,Aktivnost
+DocType: Associate,Address Line 1,Adresa 1
+DocType: Associate,Address Line 2,Adresa 2
+DocType: S Form,Amended From,Izmijenjena iz
+DocType: Travel Warrant Other Expenses,Amount,Vrednost
+DocType: Travel Warrant,Arrival,Dolazak
+DocType: Course Student,Arrival Date,Datum dolaska
+DocType: Course Associate,Arrival Time,Vreme dolaska
+DocType: S Form,Assistant,Asistent
+DocType: Associate,Associate,Saradnik
+DocType: Course Associate,Associate Affiliation,Afilijacija saradnika
+DocType: Travel Warrant,Associate Info,Podaci o saradniku
+DocType: S Form,Associate Lecturer,Saradnik predavač
+DocType: Associate Status,Associate Status,Status saradnika
+DocType: Course,Associates,Saradnici
+DocType: Course,B,B
+DocType: Travel Warrant Public Transport,Bus,Bus
+DocType: Course,C,C
+DocType: Travel Warrant Own Transport,Car,Automobil
+DocType: Travel Warrant,Car Registration,Registracija
+DocType: Associate,City,Grad
+DocType: Program,Code,Šifra
+DocType: Course Activity,Color,Boja
+DocType: Associate,Country,Država
+DocType: Course,Course,Seminar
+DocType: Course Activity,Course Activity,Aktivnost na seminaru
+DocType: Course Associate,Course Associate,Saradnik na seminaru
+DocType: Travel Warrant,Course Code,Šifra semianra
+DocType: Travel Warrant,Course Info,Podaci o seminaru
+DocType: Course,Course Manager,Rukovodioc seminara
+DocType: Travel Warrant,Course Name,Ime seminara
+,Course Planner,Planer seminara
+DocType: Course Student,Course Student,Polaznik na seminaru
+DocType: Course Associate,Create S-Form,Napravi S-listić
+DocType: Course Associate,Create Travel Warrant,Napravi putni nalog
+DocType: Course,D,D
+DocType: Associate Status,Daily Wage,Dnevnica
+DocType: Travel Warrant,Date,Datum
+DocType: S Form,Date of Arrival,Datum dolaska
+DocType: S Form,Date of Departure,Datum odlaska
+DocType: Associate,Default Status,Podrazumevani status
+DocType: Associate,"Default status on courses, can be modified per course later.","Podrazumevani status na seminarima, može se kasnije izmeniti"
+DocType: Travel Warrant,Departure,Odlazak
+DocType: Course Student,Departure Date,Datum odlaska
+DocType: Course Associate,Departure Time,Vreme odlaska
+DocType: Activity,Description,Opis
+apps/pms/pms/documentation/page/course_planner/course_planner.js +114,Discard,Odbaci
+DocType: Activity,Documentation,Dokumentacija
+DocType: Program,E,E
+apps/pms/pms/documentation/page/course_planner/course_planner.js +88,Edit {0},Izmeni {0}
+DocType: S Form,Email,Email
+DocType: Associate,Email Address,Email adresa
+DocType: Travel Warrant,End Date,Datum završetka
+DocType: Course,End date,Datum završetka
+apps/pms/pms/documentation/doctype/course/course.py +24,End date can't be before start date,Datum završetka ne može biti pre početka
+DocType: S Form,Expert Consultant,Stručni saradnik
+DocType: Course Activity,Extra,Dodatko
+DocType: Student,Female,Ženski
+DocType: Associate,First Name,Ime
+DocType: Course Activity,From,Od
+DocType: Course Associate,Full Name,Puno ime
+DocType: Travel Warrant,Gas Price,Cena goriva
+DocType: Travel Warrant,Gas Type,Vrsta goriva
+DocType: Associate,Gender,Pol
+DocType: Travel Warrant,Grand Total,Ukupan iznos
+DocType: Program,Group,Odeljenje
+DocType: S Form,Guest,Gost
+DocType: S Form,Home,Naslovna
+DocType: S Form,ID,Lična karta
+DocType: Travel Warrant,ID Card Issuer,L.K. izdata u
+DocType: Travel Warrant,ID Card No.,Broj lične karte
+DocType: Associate,ID card issuer,L.K. izdata u
+DocType: Associate,ID card number,Broj lične karte
+DocType: Associate,"If you don't have a landline phone, enter your mobile phone here as well.","Ako nemate fiksni telefon, i ovde unesite broj mobilnog"
+DocType: Associate,Image,Slika
+DocType: S Form,Institution Address,Adresa institucije
+DocType: Associate,Institution Details,Podaci o instituciji
+DocType: Associate,Institution Name,Ime institucije
+DocType: Associate,JMBG,JMBG
+DocType: Associate,Last Name,Prezime
+DocType: Program,Long Name,Puno ime
+DocType: S Form,Mailing Address,Adresa na koju želite da primate poštu
+DocType: Student,Male,Muški
+DocType: S Form,Mentor,Mentor
+DocType: Associate,Mobile No,Broj mobilnog
+DocType: S Form,Mobile No.,Broj mobilnog
+DocType: Travel Warrant Own Transport,Motorcycle,Motorcikl
+apps/pms/pms/documentation/page/course_planner/course_planner.js +137,New activity,Nova aktivnost
+DocType: Travel Warrant,Num Wages,Broj dnevnica
+DocType: Travel Warrant,Number of Hours,Broj sati
+DocType: S Form,Other,Drugo
+DocType: Travel Warrant,Other Expenses,Ostali troškovi
+DocType: Travel Warrant,Other Total,Ukupno ostalih troškova
+DocType: Travel Warrant,Own Transport,Lični transport
+DocType: S Form,Passport Issuer,Pasoš izdat u
+DocType: Student,Passport No,Broj pasoša
+DocType: S Form,Passport No.,Broj pasoša
+DocType: Associate,Permanent Address,Stalna adresa
+DocType: Associate,Personal Details,Lični podaci
+DocType: Associate,Phone,Telefon
+DocType: S Form,Phone No.,Broj telefona
+DocType: Travel Warrant Public Transport,Price,Cena
+DocType: Course,Program,Program
+DocType: Travel Warrant,Public Transport,Javni prevoz
+DocType: Travel Warrant,Received Accontation,Primljena akontacija
+DocType: Travel Warrant,Remains,Ostalo za uplatu
+DocType: S Form,S Form,S-listić
+DocType: Associate,Salutation,Titula
+apps/pms/pms/documentation/page/course_planner/course_planner.js +99,Save,Sačuvaj
+DocType: School,School,Škola
+DocType: School,School Address,Adresa škole
+DocType: School,School City,Grad škole
+DocType: School,School Country,Država škole
+DocType: School,School Name,Ime škole
+DocType: Travel Warrant,Start Date,Datum početka
+DocType: Course,Start date,Datum početka
+DocType: Associate Status,Status,Status
+DocType: Course Student,Student,Polaznik
+DocType: Course,Students,Polaznici
+DocType: Activity,System Manager,Menadžer sistema
+DocType: Associate,Temporary Address,Privremena adresa
+DocType: Activity,Title,Naslov
+DocType: Course Activity,To,Do
+DocType: Travel Warrant,Total distance,Ukupna razdaljina
+DocType: Travel Warrant Public Transport,Train,Voz
+DocType: Travel Warrant,Transport Total,Ukupno za prevoz
+DocType: Travel Warrant,Travel Warrant,Putni nalog
+DocType: Travel Warrant Other Expenses,Travel Warrant Other Expenses,Putni nalog - ostali troškovi
+DocType: Travel Warrant Own Transport,Travel Warrant Own Transport,Putni nalog - lični prevoz
+DocType: Travel Warrant Public Transport,Travel Warrant Public Transport,Putno nalog - javni prevoz
+DocType: Activity,Type,Tip
+DocType: Associate,User ID,Korisničko ime
+DocType: Travel Warrant,Wage,Dnevnica
+DocType: Travel Warrant,Wage Total,Ukupno dnevnica
+DocType: S Form,Work,Posao
+DocType: Associate,Work Email,E-mail na poslu
+DocType: S Form,Work Phone No.,Broj telefona na poslu
+DocType: Course,Year,Godina
+DocType: Associate,Zip Code,Poštanski broj
