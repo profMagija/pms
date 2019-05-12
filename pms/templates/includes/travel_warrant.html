@@ -120,7 +120,7 @@
                     </td>
                 </tr>
                 {% endfor %}
-                {% for _ in range(4 - (doc.public_transport|count) + (doc.own_transport|count)) %}
+                {% for _ in range(4 - (doc.public_transport|count) - (doc.own_transport|count)) %}
                 <tr>
                     <td><strong>&nbsp;</strong></td>
                     <td><strong>&nbsp;</strong></td>
@@ -130,7 +130,16 @@
                     </td>
                 </tr>
                 {% endfor %}
-                <tr><td colspan="4">&nbsp;</td></tr> 
+                <tr>
+                    <td colspan="4">
+                            {% if doc.total_distance %}
+                                {{doc.total_distance}}km * 0.1 * {{doc.gas_price}} dinara ({{doc.gas_type}}) = 
+                                    {{"%.2f" | format((doc.total_distance | float) * (doc.gas_price | float) * 0.1)}}
+                            {% else %}
+                            &nbsp;
+                            {% endif %}
+                    </td>
+                </tr> 
                 <tr>
                     <td colspan="5">Registarski broj: {{ doc.car_registration or '' }}</td>
                 </tr>
