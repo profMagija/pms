@@ -6,6 +6,12 @@ frappe.ui.form.on('Travel Warrant', {
 		// frm.trigger('course');
 		// frm.trigger('associate');
 		// frm.save();
+		frm.add_custom_button('Recalculate', () => {
+			frm.trigger('course');
+			frm.trigger('associate');
+			frm.trigger('recalculate_accontation');
+		})
+
 	},
 
 	async course (frm) {
@@ -80,6 +86,10 @@ frappe.ui.form.on('Travel Warrant', {
 		if (course_asocs.length == 0)
 		{
 			frappe.msgprint('No such assistant at course', 'Uh oh!');
+		}
+
+		if (course.manager == asoc.name) {
+			frm.set_value('course_manager', 'Nikola Božić')
 		}
 
 		if (course_asocs.length > 1)
